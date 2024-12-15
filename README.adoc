@@ -21,5 +21,14 @@ The main task for us is to give the user a good overview for all the sports. The
 ## Used Source Version Control System
 GitHub you can find all our files in the project repository
 
-## Project Members including surrender
+## Project Members
 - Project Members: Luka Ignjatovic, Zinedin Ademi
+
+## SYSTEM ARCHITECTURE
+image::img/Systemarchitektur.png[][Alt-Text, Breite=300, Höhe=200]
+
+## ERD
+image::img/ERD.png[][Alt-Text, Breite=300, Höhe=200]
+
+## USE CASE DIAGRAM
+image::img/UseCase.png[][Alt-Text, Breite=300, Höhe=200]
