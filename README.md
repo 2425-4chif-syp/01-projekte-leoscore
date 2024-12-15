@@ -12,7 +12,7 @@ We want to get a great overview for the user so they can see all the live stats 
 The main risk is when someone is for a longer time not in school and only one person is able to continue the work, because all two of us have important roles for the team, but there are many other small problems for example when we set our goal to high for our level. 
 
 ## Main tasks
-The database part of the project should be the second main task for us, we want to give the user an option to log in. The second main part 
+The main task for us is to give the user a good overview for all the sports. The database part of the project should be the second main task for us, we want to give the user an option to log in. 
 
 ## Timeline
 - Project start: ##.##.2024
