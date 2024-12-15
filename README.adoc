@@ -1,4 +1,4 @@
-# Leoscoremak
+# Leoscore
 ## Goals 
 We want to get a great overview for the user so they can see all the live stats for Basketball, Darts and Football. The user should be able to mark his favorite players and his favorite teams and then he should be able to see the teams he has marked first so that he is always up to date.
 
