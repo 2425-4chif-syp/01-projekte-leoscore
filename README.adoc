@@ -17,8 +17,10 @@ The main task for us is to give the user a good overview for all the sports. The
 ## Timeline
 - Project start: ##.##.2024
 - Project end: ##.##.2025
+
 ## Used Source Version Control System
 GitHub you can find all our files in the project repository
+
 ## Project Members including surrender
 - Project Members: Luka Ignjatovic, Zinedin Ademi
 - Project surrender: Professor Palitsch Infanger, Professor Stuetz
