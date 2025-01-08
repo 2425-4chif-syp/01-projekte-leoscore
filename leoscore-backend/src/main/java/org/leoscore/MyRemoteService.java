@@ -1,4 +1,4 @@
-package org.acme;
+package org.leoscore;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
