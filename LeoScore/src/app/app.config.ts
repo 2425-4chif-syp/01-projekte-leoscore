@@ -1,8 +1,10 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { appRoutes } from './app.routes'; // Importiere die Routen
 
-import { routes } from './app.routes';
+export const AppConfig = {
+  // API-Konfiguration
+  apiBaseUrl: 'https://sportapi7.p.rapidapi.com/api', // Basis-URL für die API
+  apiKey: 'e76819293dmsh626ac597282e32fp1e0d70jsn625395f58aea', // API-Key
 
-export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+  // Routen (optional, falls global benötigt)
+  routes: appRoutes, // Zugriff auf die Routen
 };
