@@ -1,5 +1,17 @@
-<nav>
-  <a routerLink="/live-games">Live Games</a> |
-  <a routerLink="/standings">Standings</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="container">
+  <h1>Scheduled Football Events</h1>
+
+  <div class="date-picker">
+    <label for="date">Select Date:</label>
+    <input id="date" type="date" [(ngModel)]="selectedDate" (change)="loadFootballGames(selectedDate)" />
+  </div>
+
+  <div *ngIf="games.length === 0">No football events found for the selected date...</div>
+  <div *ngIf="games.length > 0" class="games-list">
+    <div *ngFor="let game of games" class="game-item">
+      <h3>{{ game.homeTeam }} vs {{ game.awayTeam }}</h3>
+      <p>Score: {{ game.homeScore }} - {{ game.awayScore }}</p>
+      <p>Start Time: {{ game.startTime }}</p>
+    </div>
+  </div>
+</div>
