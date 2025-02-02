@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeoScore - NBA Live</title>
+    <link rel="stylesheet" href="basketball.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <a href="../index.html" class="back-button">
+        Zurück
+        <i class="fas fa-arrow-right"></i>
+    </a>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-basketball-ball"></i>
+                <h1>LeoScore NBA</h1>
+            </div>
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" id="playerSearch" placeholder="Spieler suchen...">
+                    <i class="fas fa-search search-icon"></i>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="date-navigation">
+            <button id="prevDay" class="nav-button">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="date-picker-wrapper">
+                <input type="date" id="datePicker">
+                <button id="today" class="today-button">Heute</button>
+            </div>
+            <button id="nextDay" class="nav-button">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <button id="showStandings" class="standings-button">
+                <i class="fas fa-table"></i>
+                Tabelle
+            </button>
+        </div>
+
+        <div id="output">
+            <!-- Hier werden die Spiele dynamisch eingefügt -->
+        </div>
+
+        <div id="standingsContainer" class="standings-container" style="display: none;">
+            <div class="conference-section">
+                <h2 class="conference-header">Eastern Conference</h2>
+                <table class="standings-table" id="eastTable">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>PCT</th>
+                            <th>GB</th>
+                            <th>L10</th>
+                            <th>STRK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Wird durch JavaScript gefüllt -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="conference-section">
+                <h2 class="conference-header">Western Conference</h2>
+                <table class="standings-table" id="westTable">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>PCT</th>
+                            <th>GB</th>
+                            <th>L10</th>
+                            <th>STRK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Wird durch JavaScript gefüllt -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .standings-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .standings-button:hover {
+            transform: translateY(-2px);
+            background: var(--gradient-hover);
+        }
+
+        .standings-button i {
+            font-size: 16px;
+        }
+
+        .standings-container {
+            margin-top: 30px;
+        }
+
+        /* Rest der Standings Styles aus standings.html */
+        .conference-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .conference-header {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .standings-table th,
+        .standings-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .standings-table th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .team-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+        }
+
+        .team-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .team-name {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .playoff-spot {
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .playin-spot {
+            border-left: 3px solid #e67e22;
+        }
+
+        .streak-positive {
+            color: #2ecc71;
+        }
+
+        .streak-negative {
+            color: #e74c3c;
+        }
+    </style>
+
+    <script src="basketball.js"></script>
+</body>
+</html>

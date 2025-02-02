@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeoScore - Darts Ergebnisse</title>
+    <link rel="stylesheet" href="darts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <a href="../index.html" class="back-button">
+        Zurück
+        <i class="fas fa-arrow-right"></i>
+    </a>
+    
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-bullseye"></i>
+                <h1>LeoScore</h1>
+            </div>
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" id="playerSearch" placeholder="Spieler suchen...">
+                    <i class="fas fa-search search-icon"></i>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="date-navigation">
+            <button id="prevDay" class="nav-button">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="date-picker-wrapper">
+                <input type="date" id="datePicker">
+                <button id="today" class="today-button">Heute</button>
+            </div>
+            <button id="nextDay" class="nav-button">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div id="output">
+            <!-- Hier werden die Spiele dynamisch eingefügt -->
+        </div>
+    </div>
+
+    <script src="darts.js"></script>
+</body>
+</html>

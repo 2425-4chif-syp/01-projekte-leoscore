@@ -1,0 +1,205 @@
+:root {
+    --primary-color: #2ecc71;
+    --primary-dark: #27ae60;
+    --bg-color: #0f0f13;
+    --text-color: #ffffff;
+    --card-bg: #1a1a20;
+    --hover-color: #3498db;
+    --nba-color: #c9082a;
+    --nba-dark: #960621;
+    --darts-color: #2ecc71;
+    --darts-dark: #27ae60;
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at top right, #141419, var(--bg-color));
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.navbar {
+    background: var(--card-bg);
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary-color);
+}
+
+.logo i {
+    font-size: 2em;
+    animation: spin 4s linear infinite;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 2em;
+    background: linear-gradient(135deg, var(--primary-color), var(--hover-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--text-shadow);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.welcome-text {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: var(--text-color);
+    text-shadow: var(--text-shadow);
+}
+
+.sports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.sport-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--card-shadow);
+}
+
+.sport-card.basketball {
+    border: 2px solid var(--nba-color);
+}
+
+.sport-card.darts {
+    border: 2px solid var(--darts-color);
+}
+
+.sport-card:hover {
+    transform: translateY(-10px);
+}
+
+.sport-card:hover .hover-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sport-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.basketball .sport-icon {
+    color: var(--nba-color);
+}
+
+.darts .sport-icon {
+    color: var(--darts-color);
+}
+
+.sport-info {
+    text-align: center;
+    z-index: 1;
+}
+
+.sport-info h3 {
+    font-size: 1.8em;
+    margin: 0 0 10px 0;
+}
+
+.sport-info p {
+    color: #888;
+    margin: 0;
+}
+
+.hover-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 26, 32, 0.95);
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+}
+
+.hover-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hover-info li {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hover-info i {
+    color: var(--primary-color);
+}
+
+.basketball .hover-info i {
+    color: var(--nba-color);
+}
+
+.darts .hover-info i {
+    color: var(--darts-color);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-text {
+        font-size: 2em;
+    }
+
+    .sports-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .sport-card {
+        min-height: 250px;
+    }
+} 
