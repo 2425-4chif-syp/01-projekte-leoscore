@@ -27,8 +27,8 @@ GitHub you can find all our files in the project repository
 ## SYSTEM ARCHITECTURE
 image::img/Systemarchitektur.png[][Alt-Text, Breite=300, Höhe=200]
 
-## ERD
-
+## BASKETBALL API ARCHITECTURE
+image::img/basketball_architecture.png[][Alt-Text, Breite=300, Höhe=200]
 
 ## USE CASE DIAGRAM
 image::img/UseCase.png[][Alt-Text, Breite=300, Höhe=200]
