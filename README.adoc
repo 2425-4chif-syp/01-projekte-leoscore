@@ -28,7 +28,7 @@ GitHub you can find all our files in the project repository
 image::img/Systemarchitektur.png[][Alt-Text, Breite=300, Höhe=200]
 
 ## ERD
-image::img/ERD.png[][Alt-Text, Breite=300, Höhe=200]
+
 
 ## USE CASE DIAGRAM
 image::img/UseCase.png[][Alt-Text, Breite=300, Höhe=200]
