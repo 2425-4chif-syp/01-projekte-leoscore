@@ -1,0 +1,76 @@
+<div class="match-details-container">
+  <div class="tabs">
+    <button 
+      [class.active]="activeTab === 'statistics'"
+      (click)="setActiveTab('statistics')">
+      Statistiken
+    </button>
+    <button 
+      [class.active]="activeTab === 'lineups'"
+      (click)="setActiveTab('lineups')">
+      Aufstellungen
+    </button>
+  </div>
+
+  <div class="content" *ngIf="activeTab === 'statistics' && statistics">
+    <h2>Spiel Statistiken</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span>Ballbesitz</span>
+        <div class="stat-bar">
+          <div class="home" [style.width]="statistics.possession.home + '%'">
+            {{statistics.possession.home}}%
+          </div>
+          <div class="away" [style.width]="statistics.possession.away + '%'">
+            {{statistics.possession.away}}%
+          </div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <span>Schüsse</span>
+        <div class="stat-numbers">
+          <span>{{statistics.shots.home}}</span>
+          <span>{{statistics.shots.away}}</span>
+        </div>
+      </div>
+      <div class="stat-item">
+        <span>Schüsse aufs Tor</span>
+        <div class="stat-numbers">
+          <span>{{statistics.shotsOnTarget.home}}</span>
+          <span>{{statistics.shotsOnTarget.away}}</span>
+        </div>
+      </div>
+      <!-- Add more statistics as needed -->
+    </div>
+  </div>
+
+  <div class="content" *ngIf="activeTab === 'lineups' && lineups">
+    <div class="lineups-container">
+      <div class="team home-team">
+        <h3>{{lineups.home.team}}</h3>
+        <div class="players-list">
+          <div *ngFor="let player of lineups.home.players" 
+               class="player-item"
+               (click)="showPlayerStats(player.id)">
+            <span class="number">{{player.number}}</span>
+            <span class="name">{{player.name}}</span>
+            <span class="position">{{player.position}}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="team away-team">
+        <h3>{{lineups.away.team}}</h3>
+        <div class="players-list">
+          <div *ngFor="let player of lineups.away.players" 
+               class="player-item"
+               (click)="showPlayerStats(player.id)">
+            <span class="number">{{player.number}}</span>
+            <span class="name">{{player.name}}</span>
+            <span class="position">{{player.position}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
