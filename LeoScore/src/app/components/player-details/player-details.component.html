@@ -1,0 +1,382 @@
+<!-- Player Header -->
+<div class="player-header" *ngIf="playerDetails">
+  <div class="player-main-info">
+    <div class="player-name-position">
+      <h1>{{ playerDetails.name }}</h1>
+      <span class="position" *ngIf="playerDetails.position">{{ playerDetails.position.name }}</span>
+    </div>
+    
+    <div class="player-team" *ngIf="playerDetails.team">
+      <img [src]="playerDetails.team.logo || DEFAULT_TEAM_LOGO" 
+           [alt]="playerDetails.team.name" 
+           class="team-logo"
+           (error)="handleImageError($event)">
+      <span class="team-name">{{ playerDetails.team.name }}</span>
+    </div>
+  </div>
+
+  <!-- Player Details Grid -->
+  <div class="player-details-grid">
+    <!-- Personal Information -->
+    <div class="details-section">
+      <h3>Persönliche Informationen</h3>
+      <div class="details-grid">
+        <div class="detail-item" *ngIf="playerDetails.birthDate">
+          <span class="label">Geburtsdatum:</span>
+          <span class="value">{{ playerDetails.birthDate | date:'dd.MM.yyyy' }}</span>
+        </div>
+        <div class="detail-item" *ngIf="playerDetails.age">
+          <span class="label">Alter:</span>
+          <span class="value">{{ playerDetails.age }} Jahre</span>
+        </div>
+        <div class="detail-item" *ngIf="playerDetails.height">
+          <span class="label">Größe:</span>
+          <span class="value">{{ playerDetails.height }} cm</span>
+        </div>
+        <div class="detail-item" *ngIf="playerDetails.country">
+          <span class="label">Nationalität:</span>
+          <span class="value">
+            <img [src]="playerDetails.country.flag" [alt]="playerDetails.country.name" class="country-flag">
+            {{ playerDetails.country.name }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Professional Information -->
+    <div class="details-section">
+      <h3>Professionelle Details</h3>
+      <div class="details-grid">
+        <div class="detail-item" *ngIf="playerDetails.jerseyNumber">
+          <span class="label">Trikotnummer:</span>
+          <span class="value">#{{ playerDetails.jerseyNumber }}</span>
+        </div>
+        <div class="detail-item" *ngIf="playerDetails.preferredFoot">
+          <span class="label">Bevorzugter Fuß:</span>
+          <span class="value">{{ playerDetails.preferredFoot }}</span>
+        </div>
+        <div class="detail-item" *ngIf="playerDetails.marketValue">
+          <span class="label">Marktwert:</span>
+          <span class="value">{{ playerDetails.marketValue.value | currency:playerDetails.marketValue.currency }}</span>
+        </div>
+        <div class="detail-item" *ngIf="playerDetails.contractUntil">
+          <span class="label">Vertrag bis:</span>
+          <span class="value">{{ playerDetails.contractUntil | date:'dd.MM.yyyy' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Date Selection -->
+<div class="date-selection">
+  <h3>Spiele anzeigen</h3>
+  <div class="date-inputs">
+    <mat-form-field>
+      <mat-label>Von</mat-label>
+      <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate" (dateChange)="onDateChange()">
+      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Bis</mat-label>
+      <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate" (dateChange)="onDateChange()">
+      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+
+<!-- Matches Section -->
+<div class="matches-section" *ngIf="groupedMatches.length > 0">
+  <div class="season-group" *ngFor="let season of groupedMatches">
+    <h3 class="season-header">
+      {{ season.name }} ({{ season.months.length }} {{ season.months.length === 1 ? 'Monat' : 'Monate' }})
+    </h3>
+    
+    <div class="month-group" *ngFor="let month of season.months">
+      <h4 class="month-header">{{ month.name }}</h4>
+      
+      <div class="match-list">
+        <div class="match-card" *ngFor="let match of month.matches">
+          <div class="match-date">
+            {{ match.date | date:'dd.MM.yyyy HH:mm' }}
+          </div>
+          
+          <div class="match-teams">
+            <div class="team home" [class.winner]="match.homeScore > match.awayScore">
+              <span class="team-name">{{ match.homeTeam }}</span>
+              <img [src]="match.homeTeamLogo" [alt]="match.homeTeam" 
+                   onerror="this.src='assets/placeholder-team.png'" class="team-logo">
+            </div>
+            
+            <div class="match-score">
+              <span>{{ match.homeScore }} - {{ match.awayScore }}</span>
+            </div>
+            
+            <div class="team away" [class.winner]="match.awayScore > match.homeScore">
+              <img [src]="match.awayTeamLogo" [alt]="match.awayTeam" 
+                   onerror="this.src='assets/placeholder-team.png'" class="team-logo">
+              <span class="team-name">{{ match.awayTeam }}</span>
+            </div>
+          </div>
+          
+          <div class="match-competition" *ngIf="match.competition">
+            {{ match.competition }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="no-matches" *ngIf="groupedMatches.length === 0">
+  <p>Keine Spiele im ausgewählten Zeitraum gefunden.</p>
+</div>
+
+<!-- Loading Indicator -->
+<div class="loading-indicator" *ngIf="isLoading">
+  <mat-spinner diameter="40"></mat-spinner>
+  <span>Lade Spielerdaten...</span>
+</div>
+
+<!-- Error Message -->
+<div class="error-message" *ngIf="errorMessage">
+  <p>{{ errorMessage }}</p>
+</div>
+
+<style>
+.player-header {
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.player-main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.player-name-position h1 {
+  margin: 0;
+  font-size: 2em;
+  color: #333;
+}
+
+.position {
+  color: #666;
+  font-size: 1.1em;
+}
+
+.player-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.team-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.team-name {
+  font-size: 1.2em;
+  color: #444;
+}
+
+.player-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.details-section {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.details-section h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.2em;
+}
+
+.details-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.label {
+  color: #666;
+  font-weight: 500;
+}
+
+.value {
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-flag {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+}
+
+.date-selection {
+  margin: 20px 0;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.date-inputs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.matches-section {
+  margin-top: 20px;
+}
+
+.season-group {
+  margin-bottom: 30px;
+}
+
+.season-header {
+  color: #333;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #eee;
+}
+
+.month-group {
+  margin-bottom: 20px;
+}
+
+.month-header {
+  color: #666;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.match-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.match-date {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.match-teams {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.team.home {
+  justify-content: flex-end;
+}
+
+.team.away {
+  justify-content: flex-start;
+}
+
+.match-score {
+  padding: 0 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.team.winner {
+  font-weight: bold;
+  color: #2196f3;
+}
+
+.match-competition {
+  color: #666;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.no-matches {
+  text-align: center;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #666;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.error-message {
+  color: #d32f2f;
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .player-main-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .date-inputs {
+    flex-direction: column;
+  }
+  
+  .match-teams {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .team.home, .team.away {
+    justify-content: center;
+  }
+  
+  .match-score {
+    padding: 5px 0;
+  }
+}
+</style> 
